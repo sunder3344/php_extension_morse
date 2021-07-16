@@ -1,0 +1,8 @@
+morse.lo: /home/software/php-8.0.7/ext/morse/morse.c
+	$(LIBTOOL) --mode=compile $(CC) -I. -I/home/software/php-8.0.7/ext/morse $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)   -c /home/software/php-8.0.7/ext/morse/morse.c -o morse.lo 
+$(phplibdir)/morse.la: ./morse.la
+	$(LIBTOOL) --mode=install cp ./morse.la $(phplibdir)
+
+./morse.la: $(shared_objects_morse) $(MORSE_SHARED_DEPENDENCIES)
+	$(LIBTOOL) --mode=link $(CC) -shared $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS)  -o $@ -export-dynamic -avoid-version -prefer-pic -module -rpath $(phplibdir) $(EXTRA_LDFLAGS) $(shared_objects_morse) $(MORSE_SHARED_LIBADD)
+
